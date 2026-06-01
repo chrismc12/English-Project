@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Ethics &amp; Society — Social Issues Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3ECDD;
+    --paper-2:#EBE1CD;
+    --card:#FBF7EC;
+    --ink:#17120C;
+    --ink-soft:#574d3f;
+    --coral:#FF4A24;
+    --blue:#173A6B;
+    --lime:#CBEF3A;
+    --line:#17120c1a;
+    --shadow:#17120c;
+    --maxw:1180px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(var(--line) 1px, transparent 1px);
+    background-size:22px 22px;
+  }
+  h1,h2,h3,h4{font-family:'Bricolage Grotesque',sans-serif;line-height:1.02;letter-spacing:-.02em;font-weight:800}
+  .mono{font-family:'Space Mono',monospace}
+  .kicker{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--coral);font-weight:700}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  section{position:relative}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:60;
+    background:#f3ecddf2;backdrop-filter:blur(8px);
+    border-bottom:2.5px solid var(--ink);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Bricolage Grotesque';font-weight:800;font-size:1.05rem}
+  .brand .dot{width:14px;height:14px;border-radius:50%;background:var(--coral);box-shadow:3px 3px 0 var(--ink)}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{font-size:.82rem;font-weight:600;position:relative;padding:4px 0}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--coral);transition:width .25s}
+  .nav-links a:hover::after{width:100%}
+  .burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .burger span{width:24px;height:2.5px;background:var(--ink);display:block;transition:.3s}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:72px 0 70px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(3rem,9.2vw,7.2rem);text-transform:uppercase}
+  .hero h1 .amp{color:var(--coral);font-style:italic}
+  .hero h1 .society{-webkit-text-stroke:2.5px var(--ink);color:transparent}
+  .hero-tag{margin:22px 0 26px;font-size:1.12rem;max-width:44ch;color:var(--ink-soft)}
+  .credits{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--ink);background:var(--card);padding:8px 14px;font-weight:700;font-size:.82rem;box-shadow:3px 3px 0 var(--ink)}
+  .chip.coral{background:var(--coral);color:#fff}
+  .chip.blue{background:var(--blue);color:#fff}
+  .hero-art{position:relative;height:340px}
+  .blob{position:absolute;border:2.5px solid var(--ink)}
+  .orbit{position:absolute;inset:0;animation:spin 26s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .scroll-cue{margin-top:46px;display:inline-flex;align-items:center;gap:10px;font-family:'Space Mono';font-size:.74rem;letter-spacing:.2em;text-transform:uppercase}
+  .scroll-cue .arr{width:34px;height:34px;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;animation:bob 1.6s ease-in-out infinite}
+  @keyframes bob{50%{transform:translateY(6px)}}
+
+  /* ---------- STAT STRIP ---------- */
+  .stats{background:var(--ink);color:var(--paper);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+  .stat{padding:38px 22px;border-right:1px solid #ffffff22}
+  .stat:last-child{border-right:none}
+  .stat .num{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(2.2rem,4.5vw,3.4rem);color:var(--lime);line-height:1}
+  .stat .lbl{margin-top:8px;font-size:.92rem;color:#e9e0cf}
+  .stat .src{margin-top:6px;font-family:'Space Mono';font-size:.64rem;letter-spacing:.08em;color:#ffffff66;text-transform:uppercase}
+
+  /* ---------- SECTION HEAD ---------- */
+  .sec{padding:84px 0}
+  .sec-head{max-width:62ch;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(2.1rem,5.2vw,3.5rem);margin:14px 0 16px}
+  .sec-head p{font-size:1.08rem;color:var(--ink-soft)}
+  .barcode{display:flex;gap:3px;align-items:flex-end;height:18px;margin-bottom:6px}
+  .barcode i{display:block;width:3px;background:var(--ink)}
+
+  /* ---------- TOPIC EXPLORER ---------- */
+  .topics{display:grid;grid-template-columns:300px 1fr;gap:0;border:2.5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);background:var(--card)}
+  .topic-tabs{border-right:2.5px solid var(--ink)}
+  .topic-tab{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:none;border-bottom:1.5px solid var(--line);padding:18px 20px;cursor:pointer;font-family:'Hanken Grotesk';font-weight:700;font-size:.98rem;color:var(--ink);transition:.18s;position:relative}
+  .topic-tab:last-child{border-bottom:none}
+  .topic-tab .ti{width:34px;height:34px;flex:none;border:2px solid var(--ink);border-radius:50%;display:grid;place-items:center;background:var(--paper);transition:.18s}
+  .topic-tab:hover{background:var(--paper-2)}
+  .topic-tab.active{background:var(--ink);color:var(--paper)}
+  .topic-tab.active .ti{background:var(--coral);border-color:var(--paper);color:#fff}
+  .topic-tab svg{width:18px;height:18px}
+  .topic-panel{padding:38px 40px;min-height:430px}
+  .topic-panel .ptag{font-family:'Space Mono';font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--coral);font-weight:700}
+  .topic-panel h3{font-size:2rem;margin:8px 0 14px}
+  .topic-panel .lead{font-size:1.05rem;color:var(--ink-soft);max-width:60ch}
+  .panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:26px}
+  .pcard{border:2px solid var(--ink);padding:18px;background:var(--paper)}
+  .pcard h4{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-family:'Space Mono';margin-bottom:8px}
+  .pcard.real h4{color:var(--blue)}
+  .pcard.stat-c{background:var(--ink);color:var(--paper)}
+  .pcard.stat-c .big{font-family:'Bricolage Grotesque';font-weight:800;font-size:2.3rem;color:var(--lime);line-height:1;margin:2px 0 6px}
+  .pcard.stat-c h4{color:#ffffffaa}
+  .pcard p{font-size:.94rem}
+  .pcard .src{font-family:'Space Mono';font-size:.62rem;letter-spacing:.06em;color:var(--ink-soft);margin-top:8px;text-transform:uppercase}
+  .pcard.stat-c .src{color:#ffffff66}
+
+  /* ---------- WHERE AI LIVES ---------- */
+  .grid-icons{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .icell{border:2.5px solid var(--ink);background:var(--card);padding:26px;box-shadow:5px 5px 0 var(--ink);transition:.2s}
+  .icell:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--coral)}
+  .icell .ic{width:48px;height:48px;border:2.5px solid var(--ink);border-radius:12px;display:grid;place-items:center;background:var(--lime);margin-bottom:16px}
+  .icell svg{width:26px;height:26px}
+  .icell h4{font-size:1.15rem;margin-bottom:6px}
+  .icell p{font-size:.92rem;color:var(--ink-soft)}
+
+  /* ---------- TWO SIDES ---------- */
+  .scale{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2.5px solid var(--ink);box-shadow:7px 7px 0 var(--ink);overflow:hidden}
+  .side{padding:34px}
+  .side.good{background:var(--card)}
+  .side.bad{background:var(--ink);color:var(--paper)}
+  .side .head{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+  .side .badge{font-family:'Space Mono';font-weight:700;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 12px;border:2px solid currentColor}
+  .side.good .badge{color:var(--blue)}
+  .side.bad .badge{color:var(--lime)}
+  .side h3{font-size:1.6rem}
+  .side ul{list-style:none;display:flex;flex-direction:column;gap:14px;margin-top:8px}
+  .side li{display:flex;gap:12px;font-size:.97rem}
+  .side li b{display:block;font-family:'Bricolage Grotesque'}
+  .side .mk{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.8rem;margin-top:2px}
+  .side.good .mk{background:var(--lime);color:var(--ink)}
+  .side.bad .mk{background:var(--coral);color:#fff}
+
+  /* ---------- DEBATE / POLL ---------- */
+  .debate{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .dcol{border:2.5px solid var(--ink);padding:28px;background:var(--card)}
+  .dcol h3{font-size:1.4rem;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+  .dcol.pro h3 .tg{background:var(--lime)}
+  .dcol.con h3 .tg{background:var(--coral);color:#fff}
+  .tg{font-family:'Space Mono';font-size:.66rem;padding:4px 9px;border:2px solid var(--ink);letter-spacing:.12em;text-transform:uppercase;font-weight:700}
+  .dcol ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .dcol li{font-size:.96rem;padding-left:22px;position:relative}
+  .dcol li::before{content:"→";position:absolute;left:0;color:var(--coral);font-weight:700}
+  .poll{margin-top:26px;border:2.5px solid var(--ink);background:var(--ink);color:var(--paper);padding:28px;box-shadow:6px 6px 0 var(--coral)}
+  .poll h3{color:#fff;font-size:1.4rem;margin-bottom:16px}
+  .poll-btns{display:flex;gap:12px;flex-wrap:wrap}
+  .pbtn{flex:1;min-width:160px;border:2px solid var(--paper);background:transparent;color:var(--paper);padding:14px;font-family:'Bricolage Grotesque';font-weight:700;font-size:1rem;cursor:pointer;transition:.15s}
+  .pbtn:hover{background:var(--paper);color:var(--ink)}
+  .bars{margin-top:20px;display:none;flex-direction:column;gap:14px}
+  .bars.show{display:flex}
+  .bar-row .bl{display:flex;justify-content:space-between;font-size:.85rem;margin-bottom:5px;font-weight:600}
+  .track{height:16px;background:#ffffff22;border:1px solid #ffffff33;overflow:hidden}
+  .fill{height:100%;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+  .fill.f1{background:var(--lime)}
+  .fill.f2{background:var(--coral)}
+  .fill.f3{background:#fff}
+
+  /* ---------- CONCLUSION ---------- */
+  .concl{background:var(--blue);color:var(--paper);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .concl .wrap{padding:80px 26px}
+  .concl h2{font-size:clamp(2rem,5vw,3.4rem);max-width:20ch;color:#fff}
+  .concl p{font-size:1.12rem;max-width:58ch;margin-top:18px;color:#e7eefb}
+  .concl .pull{font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(1.4rem,3vw,2rem);margin-top:34px;padding-left:20px;border-left:5px solid var(--lime);max-width:40ch}
+
+  /* ---------- SOURCES ---------- */
+  .src-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .src-item{border:2px solid var(--ink);background:var(--card);padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+  .src-item .n{font-family:'Space Mono';font-weight:700;color:var(--coral);flex:none}
+  .src-item .t{font-weight:700;font-size:.96rem}
+  .src-item .d{font-size:.82rem;color:var(--ink-soft)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ink);color:var(--paper);padding:50px 0 40px}
+  footer .f-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px}
+  footer h3{font-size:1.9rem;color:#fff}
+  footer .fmono{font-family:'Space Mono';font-size:.78rem;color:#ffffff99;letter-spacing:.06em;margin-top:8px}
+  footer .tag2{font-family:'Space Mono';font-size:.72rem;color:var(--lime);letter-spacing:.2em;text-transform:uppercase}
+
+  /* ---------- REVEAL ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr}
+    .hero-art{display:none}
+    .stats .wrap{grid-template-columns:1fr 1fr}
+    .stat{border-bottom:1px solid #ffffff22}
+    .topics{grid-template-columns:1fr}
+    .topic-tabs{display:grid;grid-template-columns:repeat(2,1fr);border-right:none;border-bottom:2.5px solid var(--ink)}
+    .topic-tab{border-bottom:1px solid var(--line);font-size:.82rem;padding:14px}
+    .panel-grid{grid-template-columns:1fr}
+    .grid-icons{grid-template-columns:1fr 1fr}
+    .scale,.debate{grid-template-columns:1fr}
+    .src-list{grid-template-columns:1fr}
+    .nav-links{position:fixed;inset:62px 0 auto 0;background:var(--paper);flex-direction:column;padding:18px 26px;border-bottom:2.5px solid var(--ink);gap:14px;transform:translateY(-130%);transition:.32s;z-index:55}
+    .nav-links.open{transform:none}
+    .burger{display:flex}
+  }
+  @media(max-width:540px){
+    .stats .wrap{grid-template-columns:1fr}
+    .grid-icons{grid-template-columns:1fr}
+    .topic-tabs{grid-template-columns:1fr}
+    .topic-panel{padding:26px 22px}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-in">
+    <a href="#top" class="brand"><span class="dot"></span>AI&nbsp;Ethics<span style="color:var(--coral)">.</span></a>
+    <button class="burger" id="burger" aria-label="menu"><span></span><span></span><span></span></button>
+    <div class="nav-links" id="navlinks">
+      <a href="#why">Why It Matters</a>
+      <a href="#issues">The Issues</a>
+      <a href="#twosides">Two Sides</a>
+      <a href="#debate">Should We Regulate?</a>
+      <a href="#sources">Sources</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="kicker">Social Issues Project · 5th Period</span>
+      <h1>AI&nbsp;Ethics<br><span class="amp">&amp;</span> <span class="society">Society</span></h1>
+      <p class="hero-tag">Artificial intelligence already shapes how we learn, work, communicate, and get judged — often without us noticing. This is a guided tour of the promises, the dangers, and the hard questions we all need to start asking.</p>
+      <div class="credits">
+        <span class="chip coral">Dean Rehal</span>
+        <span class="chip blue">Chris McCory</span>
+        <span class="chip">Class Period 5</span>
+      </div>
+      <a href="#why" class="scroll-cue"><span class="arr">↓</span> Start exploring</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="orbit">
+        <div class="blob" style="width:120px;height:120px;border-radius:50%;background:var(--coral);top:20px;left:30px;box-shadow:6px 6px 0 var(--ink)"></div>
+        <div class="blob" style="width:90px;height:90px;background:var(--lime);bottom:40px;right:20px;transform:rotate(12deg);box-shadow:6px 6px 0 var(--ink)"></div>
+        <div class="blob" style="width:70px;height:70px;border-radius:50%;background:var(--blue);bottom:120px;left:10px"></div>
+      </div>
+      <div class="blob" style="width:160px;height:160px;border-radius:50%;background:var(--card);top:90px;left:90px;display:grid;place-items:center;box-shadow:7px 7px 0 var(--ink)">
+        <svg width="76" height="76" viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/><circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/><path d="M9 16h6"/></svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STAT STRIP -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stat"><div class="num" data-target="92" data-suffix="M">0</div><div class="lbl">jobs projected to be displaced by AI &amp; automation by 2030</div><div class="src">World Economic Forum, 2025</div></div>
+    <div class="stat"><div class="num" data-target="1.1" data-prefix="$" data-suffix="B" data-dec="1">0</div><div class="lbl">lost worldwide to deepfake scams in a single year (2025)</div><div class="src">Surfshark, 2026</div></div>
+    <div class="stat"><div class="num" data-target="100" data-prefix="up to " data-suffix="×">0</div><div class="lbl">more likely some face-recognition tools misidentify people of color</div><div class="src">NIST study of 189 algorithms, 2019</div></div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section class="sec" id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="barcode"><i style="height:8px"></i><i style="height:16px"></i><i style="height:5px"></i><i style="height:18px"></i><i style="height:10px"></i><i style="height:14px"></i></div>
+      <span class="kicker">01 — The Big Picture</span>
+      <h2>Why AI ethics is everybody's problem</h2>
+      <p>AI is now woven into schools, hospitals, banks, social media, cars, and police departments. It can make life faster and easier — but it also collects our data, shapes our opinions, and sometimes makes unfair decisions that affect millions of people. The problem: most of us use AI every day without understanding the risks. This project breaks down the biggest ethical issues so you can think critically about how AI <em>should</em> be used.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ISSUES -->
+<section class="sec" id="issues" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">02 — Explore</span>
+      <h2>Six ethical issues, up close</h2>
+      <p>Click any issue to see what's really going on — including a real-world example and a verified statistic for each.</p>
+    </div>
+
+    <div class="topics reveal">
+      <div class="topic-tabs" id="topicTabs"></div>
+      <div class="topic-panel" id="topicPanel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO SIDES -->
+<section class="sec" id="twosides">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">03 — The Balance</span>
+      <h2>The promise and the peril</h2>
+      <p>Good ethics means seeing both sides. The same technology can lift people up or leave them behind — often at the same time.</p>
+    </div>
+    <div class="scale reveal">
+      <div class="side good">
+        <div class="head"><span class="badge">The Promise</span></div>
+        <h3>How AI can help society</h3>
+        <ul>
+          <li><span class="mk">+</span><span><b>Faster medicine.</b> AI can spot patterns in scans and lab results, helping doctors catch diseases like cancer earlier.</span></li>
+          <li><span class="mk">+</span><span><b>Access for everyone.</b> Free tutoring, translation, and tools for people with disabilities are suddenly available to anyone with a phone.</span></li>
+          <li><span class="mk">+</span><span><b>Safer, smarter systems.</b> AI helps manage traffic, predict storms, detect fraud, and reduce repetitive busywork.</span></li>
+          <li><span class="mk">+</span><span><b>New kinds of jobs.</b> The WEF projects 170 million new roles by 2030 — more than the number it expects to disappear.</span></li>
+        </ul>
+      </div>
+      <div class="side bad">
+        <div class="head"><span class="badge">The Peril</span></div>
+        <h3>How AI can harm society</h3>
+        <ul>
+          <li><span class="mk">!</span><span><b>Hidden bias.</b> If the data is unfair, the AI is unfair — and it can deny loans, jobs, or freedom at scale.</span></li>
+          <li><span class="mk">!</span><span><b>Surveillance &amp; data grabs.</b> Systems quietly collect, store, and sell intimate details about your life.</span></li>
+          <li><span class="mk">!</span><span><b>Misinformation.</b> Deepfakes and AI text make convincing lies cheap and fast, eroding trust in what we see.</span></li>
+          <li><span class="mk">!</span><span><b>Displaced workers.</b> 92 million existing jobs are projected to be displaced — and the new jobs need different skills.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEBATE -->
+<section class="sec" id="debate">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">04 — The Open Question</span>
+      <h2>Should governments regulate AI more strictly?</h2>
+      <p>This is one of the biggest unsettled debates in tech today. Here are the strongest arguments on each side — then cast your own vote.</p>
+    </div>
+    <div class="debate reveal">
+      <div class="dcol pro">
+        <h3><span class="tg">Yes — regulate</span></h3>
+        <ul>
+          <li>Rules can require companies to test for bias before AI decides on jobs, loans, or arrests.</li>
+          <li>Laws like the EU AI Act ban the most dangerous uses and demand human oversight for high-risk systems.</li>
+          <li>Clear standards protect privacy and force companies to label AI-generated content and deepfakes.</li>
+          <li>Without guardrails, harm falls hardest on people with the least power to fight back.</li>
+        </ul>
+      </div>
+      <div class="dcol con">
+        <h3><span class="tg">No — go lighter</span></h3>
+        <ul>
+          <li>Heavy rules can slow innovation and push research to countries with fewer protections.</li>
+          <li>Technology changes faster than laws, so regulations risk being outdated the moment they pass.</li>
+          <li>Big companies can afford compliance; strict rules may crush smaller startups and competition.</li>
+          <li>Some argue industry standards and transparency can manage risk without government control.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="poll reveal">
+      <h3>What do you think? Vote 👇</h3>
+      <div class="poll-btns" id="pollBtns">
+        <button class="pbtn" data-i="0">Regulate strictly</button>
+        <button class="pbtn" data-i="1">Light-touch rules</button>
+        <button class="pbtn" data-i="2">Let industry decide</button>
+      </div>
+      <div class="bars" id="pollBars">
+        <div class="bar-row"><div class="bl"><span>Regulate strictly</span><span id="p0">0%</span></div><div class="track"><div class="fill f1" id="f0"></div></div></div>
+        <div class="bar-row"><div class="bl"><span>Light-touch rules</span><span id="p1">0%</span></div><div class="track"><div class="fill f2" id="f1"></div></div></div>
+        <div class="bar-row"><div class="bl"><span>Let industry decide</span><span id="p2">0%</span></div><div class="track"><div class="fill f3" id="f2"></div></div></div>
+      </div>
+      <p class="mono" style="font-size:.7rem;color:#ffffff66;margin-top:16px">Live tally for this presentation — resets each time the page loads.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="concl">
+  <div class="wrap reveal">
+    <span class="kicker" style="color:var(--lime)">05 — Takeaway</span>
+    <h2>We can't stop AI. We <em>can</em> decide how it's used.</h2>
+    <p>The point of this project isn't to make you fear AI or worship it — it's to make you a sharper, more critical user and citizen. Every recommendation feed, chatbot, and facial scan is the result of human choices. The more people who understand the ethics, the better those choices get.</p>
+    <p class="pull">"Many people use AI every day without realizing how it can influence opinions, collect data, and make unfair decisions. Understanding it is the first step to using it responsibly."</p>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section class="sec" id="sources">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">References</span>
+      <h2>Our sources</h2>
+      <p>We used trustworthy organizations — academic research, news outlets, government bodies, and cybersecurity firms — so the information is reliable and current as of 2026.</p>
+    </div>
+    <div class="src-list reveal" id="srcList"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap f-grid">
+    <div>
+      <h3>AI Ethics &amp; Society</h3>
+      <div class="fmono">Dean Rehal &amp; Chris McCory · Class Period 5</div>
+    </div>
+    <div style="text-align:right">
+      <div class="tag2">Social Issues Project</div>
+      <div class="fmono">Think critically. Use responsibly.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA ============ */
+const ICONS = {
+  lock:'<path d="M4 7h16v12H4z"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/><circle cx="12" cy="13" r="1.3"/>',
+  mask:'<path d="M3 6s2-1 9-1 9 1 9 1v6a8 8 0 0 1-9 8 8 8 0 0 1-9-8z"/><circle cx="8.5" cy="11" r="1.3"/><circle cx="15.5" cy="11" r="1.3"/>',
+  scale:'<path d="M12 3v18"/><path d="M5 21h14"/><path d="M5 7l-3 6h6z"/><path d="M19 7l-3 6h6z"/><path d="M5 7h14"/>',
+  robot:'<rect x="5" y="8" width="14" height="11" rx="2"/><path d="M12 4v4"/><circle cx="12" cy="3" r="1.4"/><circle cx="9.5" cy="13" r="1.2"/><circle cx="14.5" cy="13" r="1.2"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2z"/><path d="M4 19a2 2 0 0 1 2-2h12"/>',
+  gov:'<path d="M3 21h18"/><path d="M5 21V9l7-5 7 5v12"/><path d="M9 21v-6h6v6"/>',
+  hospital:'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M12 8v6M9 11h6"/>',
+  social:'<circle cx="7" cy="8" r="2"/><circle cx="17" cy="8" r="2"/><circle cx="12" cy="16" r="2"/><path d="M8.5 9.5 11 14M15.5 9.5 13 14"/>',
+  car:'<path d="M5 16l1-5h12l1 5"/><rect x="3" y="16" width="18" height="4" rx="1"/><circle cx="7" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/>',
+  cam:'<rect x="3" y="7" width="18" height="12" rx="2"/><circle cx="12" cy="13" r="3"/><path d="M8 7l1.5-2h5L16 7"/>',
+  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/><path d="M3 4h2l2.5 12h10l2-8H6"/>',
+  chat:'<path d="M4 5h16v11H9l-4 3z"/><path d="M8 9h8M8 12h5"/>'
+};
+function svg(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';}
+
+const TOPICS = [
+  {
+    icon:ICONS.lock, label:"Privacy & Data",
+    tag:"Issue 01", title:"Privacy & Surveillance",
+    lead:"AI runs on data — and a lot of that data is you. Apps, recommendation systems, and smart devices constantly collect what you watch, where you go, and who you talk to, often without you fully realizing it.",
+    real:{t:"Everyday tracking", b:"Recommendation engines on social media and streaming apps build detailed profiles of your habits to predict — and nudge — what you'll do next. This data can be stored, sold, or leaked."},
+    stat:{big:"#1", h:"First-ever AI law", b:"The EU's AI Act (the world's first comprehensive AI law) and U.S. state laws now force companies to be more transparent about data and AI use.", src:"European Union · 2024–2026"}
+  },
+  {
+    icon:ICONS.mask, label:"Deepfakes",
+    tag:"Issue 02", title:"Misinformation & Deepfakes",
+    lead:"AI can now generate fake videos, voices, and images that look completely real. That makes lies cheap to produce and hard to detect — threatening trust in news, elections, and even your own family's voice.",
+    real:{t:"The $39M video call", b:"In 2024, a finance worker in Hong Kong wired about $39 million after a video call with what looked like their boss and colleagues — every person on the call was a deepfake."},
+    stat:{big:"24.5%", h:"Human detection rate", b:"People correctly identify high-quality video deepfakes only about a quarter of the time. In 2025, roughly 83% of deepfake-fraud losses started on social media.", src:"Industry data · Surfshark, 2025–26"}
+  },
+  {
+    icon:ICONS.scale, label:"Bias",
+    tag:"Issue 03", title:"Bias & Discrimination",
+    lead:"AI learns from data created by humans — so it can absorb and amplify human bias. When biased systems decide on jobs, loans, or arrests, the unfairness happens automatically and at massive scale.",
+    real:{t:"The wrong man arrested", b:"In 2020, Robert Williams was wrongfully arrested in Detroit after facial recognition matched him to a thief he looked nothing like. He's one of at least seven known wrongful arrests — most of them Black Americans."},
+    stat:{big:"up to 100×", h:"Higher error rate", b:"A landmark U.S. government (NIST) study of 189 algorithms found some misidentified Black and Asian faces up to 100 times more often than white faces.", src:"NIST · 2019"}
+  },
+  {
+    icon:ICONS.robot, label:"Jobs",
+    tag:"Issue 04", title:"Jobs & Automation",
+    lead:"Automation can replace tasks faster than workers can retrain. The worry isn't only lost jobs — it's that the new jobs appear in different places and need different skills than the ones that disappear.",
+    real:{t:"A churning workforce", b:"Roles like data entry, cashiers, and administrative support face the biggest declines, while AI specialists and 'human-machine' roles grow fast. The transition rarely lands on the same people."},
+    stat:{big:"+78M", h:"Net new jobs by 2030", b:"The WEF projects 92M jobs displaced but 170M created — a net gain of 78M. The challenge is the gap between lost and new skills.", src:"World Economic Forum · 2025"}
+  },
+  {
+    icon:ICONS.book, label:"Education",
+    tag:"Issue 05", title:"AI in Education",
+    lead:"AI tutors can give every student personalized help — but the same tools raise hard questions about cheating, over-reliance, and whether students still learn to think for themselves.",
+    real:{t:"The double-edged tool", b:"Chatbots can explain tough concepts instantly and tutor 24/7. They can also write essays for students and 'hallucinate' confident, wrong answers that learners may not catch."},
+    stat:{big:"?", h:"The open question", b:"Schools worldwide are racing to set policies: how do we use AI to help students learn, without letting it replace the thinking learning is supposed to build?", src:"Ongoing global debate · 2024–2026"}
+  },
+  {
+    icon:ICONS.gov, label:"Regulation",
+    tag:"Issue 06", title:"Regulating AI",
+    lead:"Who should set the rules for AI — governments, companies, or no one? Too little oversight risks real harm; too much could slow helpful innovation. There's no global consensus yet.",
+    real:{t:"Laws are arriving", b:"The EU AI Act bans the riskiest uses and phases in rules for 'high-risk' systems through 2026. In the U.S., states like California now require AI-content disclosure, with no single federal law yet."},
+    stat:{big:"2026", h:"Rules take hold", b:"Major AI obligations under the EU AI Act and several U.S. state laws are taking effect in 2026 — a turning point from voluntary guidelines to enforceable rules.", src:"EU & U.S. state law · 2026"}
+  }
+];
+
+const SOURCES = [
+  {t:"World Economic Forum — Future of Jobs Report 2025", d:"Projections on jobs created and displaced by AI and automation."},
+  {t:"NIST (U.S. National Institute of Standards and Technology), 2019", d:"Study of 189 facial-recognition algorithms and racial error rates."},
+  {t:"ACLU & NPR — Robert Williams case coverage", d:"Reporting on wrongful arrests caused by facial recognition."},
+  {t:"Surfshark / DeepStrike — Deepfake statistics, 2025–2026", d:"Data on deepfake fraud losses and how they spread on social media."},
+  {t:"European Union — The AI Act", d:"The world's first comprehensive law regulating artificial intelligence."},
+  {t:"Goldman Sachs & IMF research", d:"Estimates of how many jobs and work-hours AI could affect."},
+  {t:"MIT — 'Gender Shades' study (Joy Buolamwini)", d:"Research showing face systems are less accurate for darker-skinned women."},
+  {t:"Scientific American & Innocence Project", d:"Analysis of AI bias in policing and the justice system."}
+];
+
+/* ============ RENDER ============ */
+// Topic tabs + panel
+const tabsEl = document.getElementById('topicTabs');
+const panelEl = document.getElementById('topicPanel');
+TOPICS.forEach((t,i)=>{
+  const b=document.createElement('button');
+  b.className='topic-tab'+(i===0?' active':'');
+  b.innerHTML='<span class="ti">'+svg(t.icon)+'</span>'+t.label;
+  b.onclick=()=>{document.querySelectorAll('.topic-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderPanel(i);};
+  tabsEl.appendChild(b);
+});
+function renderPanel(i){
+  const t=TOPICS[i];
+  panelEl.innerHTML=
+    '<div class="ptag">'+t.tag+'</div>'+
+    '<h3>'+t.title+'</h3>'+
+    '<p class="lead">'+t.lead+'</p>'+
+    '<div class="panel-grid">'+
+      '<div class="pcard real"><h4>Real-world example · '+t.real.t+'</h4><p>'+t.real.b+'</p></div>'+
+      '<div class="pcard stat-c"><h4>'+t.stat.h+'</h4><div class="big">'+t.stat.big+'</div><p>'+t.stat.b+'</p><div class="src">'+t.stat.src+'</div></div>'+
+    '</div>';
+}
+renderPanel(0);
+
+// Sources
+const sl=document.getElementById('srcList');
+SOURCES.forEach((s,i)=>{
+  const d=document.createElement('div');
+  d.className='src-item';
+  d.innerHTML='<span class="n">'+String(i+1).padStart(2,'0')+'</span><div><div class="t">'+s.t+'</div><div class="d">'+s.d+'</div></div>';
+  sl.appendChild(d);
+});
+
+/* ============ POLL LOGIC ============ */
+const votes=[7,5,3]; // light starting tally so bars look alive in class
+let voted=false;
+document.querySelectorAll('#pollBtns .pbtn').forEach(b=>{
+  b.onclick=()=>{
+    if(voted) return; voted=true;
+    votes[parseInt(b.dataset.i)]++;
+    b.style.background='var(--lime)'; b.style.color='var(--ink)';
+    document.getElementById('pollBars').classList.add('show');
+    const total=votes.reduce((a,c)=>a+c,0);
+    votes.forEach((v,i)=>{
+      const pct=Math.round(v/total*100);
+      document.getElementById('p'+i).textContent=pct+'%';
+      setTimeout(()=>document.getElementById('f'+i).style.width=pct+'%',60);
+    });
+  };
+});
+
+/* ============ COUNTERS ============ */
+function animateCount(el){
+  const target=parseFloat(el.dataset.target);
+  const dec=parseInt(el.dataset.dec||'0');
+  const pre=el.dataset.prefix||''; const suf=el.dataset.suffix||'';
+  const dur=1400; const start=performance.now();
+  function step(now){
+    const p=Math.min((now-start)/dur,1);
+    const eased=1-Math.pow(1-p,3);
+    const val=(target*eased).toFixed(dec);
+    el.textContent=pre+val+suf;
+    if(p<1) requestAnimationFrame(step);
+    else el.textContent=pre+target.toFixed(dec)+suf;
+  }
+  requestAnimationFrame(step);
+}
+
+/* ============ REVEAL + COUNTER OBSERVERS ============ */
+const io=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+const co=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ animateCount(e.target); co.unobserve(e.target);} });
+},{threshold:.5});
+document.querySelectorAll('[data-target]').forEach(el=>co.observe(el));
+
+/* ============ MOBILE NAV ============ */
+const burger=document.getElementById('burger');
+const navlinks=document.getElementById('navlinks');
+burger.onclick=()=>navlinks.classList.toggle('open');
+navlinks.querySelectorAll('a').forEach(a=>a.onclick=()=>navlinks.classList.remove('open'));
+</script>
+</body>
+</html>
